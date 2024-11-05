@@ -29,6 +29,11 @@ export default function Login() {
   );
 
   const handleLogin = async () => {
+    if (!usuario.trim() || !contrasena.trim()) {
+      Alert.alert('Error', 'Por favor, complete todos los campos.');
+      return; 
+    }
+
     setLoading(true);
   
     try {
@@ -59,13 +64,21 @@ export default function Login() {
     }
   };
 
+  const handleForgotPassword = () => {
+    Alert.alert(
+      'Restablecimiento de contraseña',
+      'Para solicitar el restablecimiento de su contraseña, por favor contacte a soporte.campusvirtual@utepsa.edu',
+      [{ text: 'OK' }]
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar sesión</Text>
       
       <TextInput
         style={styles.input}
-        placeholder="Nro. de Agenda"
+        placeholder="Usuario"
         value={usuario}
         onChangeText={setUsuario}
         placeholderTextColor="#888"
@@ -98,6 +111,10 @@ export default function Login() {
         ) : (
           <Text style={styles.buttonText}>Iniciar sesión</Text>
         )}
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleForgotPassword}>
+        <Text style={styles.forgotPasswordText}>¿Olvidaste tu contraseña?</Text>
       </TouchableOpacity>
     </View>
   );
@@ -179,5 +196,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  forgotPasswordText: {
+    marginTop: 15,
+    color: '#cf152d',
+    textDecorationLine: 'underline',
   },
 });
