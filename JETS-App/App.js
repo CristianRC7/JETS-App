@@ -11,7 +11,8 @@ import Survey from './components/Survey';
 import Form from './screens/Form';
 import SelectEventScreen from './screens/SelectEventScreen';
 import SplashScreen from './SplashScreen';
-
+import Toast from 'react-native-toast-message';
+import useNetworkStatus from './components/useNetworkStatus';
 
 import { BackHandler, Alert } from 'react-native';
 
@@ -44,6 +45,7 @@ const useBackHandler = () => {
 
 export default function App() {
   const [isSplashVisible, setSplashVisible] = useState(true);
+  const isConnected = useNetworkStatus(); 
 
   useBackHandler(); 
 
@@ -57,18 +59,22 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false , gestureEnabled: false}}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Drawer" component={DrawerNavigator} />
-        <Stack.Screen name="Event" component={Event} />
-        <Stack.Screen name="Support" component={Support} />
-        <Stack.Screen name="Inscription" component={Inscription} />
-        <Stack.Screen name="Exhibitors" component={Exhibitors} />
-        <Stack.Screen name="Form" component={Form} />
-        <Stack.Screen name="Survey" component={Survey} options={{ title: 'Encuesta' }} />
-        <Stack.Screen name="SelectEventScreen" component={SelectEventScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false , gestureEnabled: false}}>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Drawer" component={DrawerNavigator} />
+          <Stack.Screen name="Event" component={Event} />
+          <Stack.Screen name="Support" component={Support} />
+          <Stack.Screen name="Inscription" component={Inscription} />
+          <Stack.Screen name="Exhibitors" component={Exhibitors} />
+          <Stack.Screen name="Form" component={Form} />
+          <Stack.Screen name="Survey" component={Survey} options={{ title: 'Encuesta' }} />
+          <Stack.Screen name="SelectEventScreen" component={SelectEventScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+
+      <Toast />
+    </>
   );
 }
